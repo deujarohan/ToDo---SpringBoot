@@ -3,63 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To-Do List</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <title>To-Do</title>
   </head>
   <body>
-    <h1>To-Do List</h1>
-    <!-- Form to add todo -->
-    <form action="/addTodo" method="post">
-      <!-- TITLE -->
-      <!-- name="title" → sets todo.setTitle(...)
-      name="description" → sets todo.setDescription(...)
-      name="completed" → sets todo.setCompleted(...) -->
-      <!-- Spring does this automatically — no extra code needed. -->
-      <label>Title:</label><br />
-      <input type="text" name="title" required />
-      <br /><br />
-
-      <!-- DESCRIPTION -->
-      <label>Description:</label><br />
-      <input type="text" name="description" />
-      <br /><br />
-
-      <!-- COMPLETED STATUS -->
-      <label>Status:</label>
-
-      <select name="completed">
-        <option value="false">Not Completed</option>
-
-        <option value="true">Completed</option>
-      </select>
-
-      <br /><br />
-
-      <button type="submit">Add Todo</button>
-    </form>
-
-    <hr />
-
-    <h2>Todo List</h2>
-
-    <ul>
-      <li th:each="todo : ${createTodo}">
-        <!-- th:each loops over the list stored in the model under "createTodo" -->
-        <!-- 'todo' is the variable representing each item in the list -->
-        <!-- so its like for(todo :: createTodo) and createTodo is a list, we are taking each element from that list -->
-        <b th:text="${todo.title}"></b>
-        <!-- Display the title of the current todo item in bold -->
-        <!-- todo is the element from above, and title is an attribute of createTodo accessing it like an obj -->
-
-        -
-
-        <span th:text="${todo.description}"></span>
-        <!-- Display the description of the current todo item -->
-
-        -
-
-        <span th:text="${todo.completed}"></span>
-        <!-- Display whether the current todo item is completed (true/false) -->
-      </li>
-    </ul>
+    <h1>To-Do</h1>
+    <a th:href="@{/todo}">
+      <button>To-Do List</button>
+    </a>
   </body>
 </html>

@@ -1,0 +1,96 @@
+/* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full screen layout */
+body {
+  height: 100vh;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: linear-gradient(135deg, #667eea, #764ba2);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+/* Main container */
+.container {
+  background: white;
+
+  width: 90%;
+
+  max-width: 700px;
+
+  padding: 40px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+h1 {
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+button {
+  padding: 12px 20px;
+
+  border: none;
+
+  background: #667eea;
+
+  color: white;
+
+  font-size: 16px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+/* Input fields */
+input,
+select {
+  width: 100%;
+
+  padding: 10px;
+
+  margin-top: 5px;
+
+  margin-bottom: 15px;
+
+  border-radius: 6px;
+
+  border: 1px solid #ccc;
+}
+
+/* Todo list */
+ul {
+  list-style: none;
+}
+
+/* Each todo item */
+li {
+  background: #f4f4f4;
+
+  padding: 12px;
+
+  margin-bottom: 10px;
+
+  border-radius: 6px;
+}

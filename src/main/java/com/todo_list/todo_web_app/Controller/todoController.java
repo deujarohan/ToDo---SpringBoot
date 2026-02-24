@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class todoController { 
 
     @GetMapping("/")
-    @ResponseBody
-    public String hello(){
-        return "Hello World";
+    public String landingPage(){
+        return "index";
     }
     // Create List to Store Todo
     private List<ToDo> todoList = new ArrayList<>();
@@ -39,7 +38,7 @@ public class todoController {
         //we are directly using todoList "createTodo" is just a name/key 
         // for the HTML to access the data — it does not create a new list.
         model.addAttribute("createTodo", todoList);
-        return "index";
+        return "list";
     }
 
 //      Clicks Add → browser sends POST request to /addtodo
