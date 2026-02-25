@@ -1,9 +1,11 @@
 package com.todo_list.todo_web_app.Model;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Component
+@Document
 public class ToDo {
+    @Id
     private String id;
     private String title;
     private String description;

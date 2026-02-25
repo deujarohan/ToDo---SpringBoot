@@ -5,11 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo_list.todo_web_app.Model.ToDo;
+import com.todo_list.todo_web_app.Service.todoService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,12 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class todoController { 
 
+    @Autowired
+    private todoService todoService;
+
+
     @GetMapping("/")
     public String landingPage(){
         return "index";
     }
-    // Create List to Store Todo
-    private List<ToDo> todoList = new ArrayList<>();
 
     // Create method to show page
     @GetMapping("/todo")
@@ -37,7 +42,12 @@ public class todoController {
         // createTodo is a list created with this "todoList"
         //we are directly using todoList "createTodo" is just a name/key 
         // for the HTML to access the data — it does not create a new list.
+        // --------------------------------------------------------------
+        // Create List to Store Todo
+        List<ToDo> todoList = todoService.getAllTodos();
         model.addAttribute("createTodo", todoList);
+        // --------------------------------------------------------------
+        // todoService.getAllTodos();
         return "list";
     }
 
@@ -48,7 +58,10 @@ public class todoController {
     // object is added in this list, then we redirect to /todo
     @PostMapping("/addTodo")
     public String postMethodName(ToDo todo) {
-        todoList.add(todo);
+        // --------------------------------------------------------------
+        // todoList.add(todo);
+        // --------------------------------------------------------------
+        todoService.saveTodo(todo);
         // "redirect:" is a special prefix in Spring MVC
     //     It tells Spring:
     // “Don’t render a view template. Instead, send an HTTP redirect to the browser to this URL.”
