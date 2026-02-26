@@ -1,12 +1,13 @@
 package com.todo_list.todo_web_app.Model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class ToDo {
     @Id
-    private String id;
+    private ObjectId id;
     private String title;
     private String description;
     private boolean completed;
@@ -14,19 +15,15 @@ public class ToDo {
     public ToDo() {
     }
 
-    public ToDo(String id, String title, String description, boolean completed) {
+    public ToDo(ObjectId id, String title, String description, boolean completed) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.completed = completed;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTitle() {
