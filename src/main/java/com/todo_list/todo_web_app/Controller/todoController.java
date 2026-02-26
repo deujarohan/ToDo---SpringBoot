@@ -60,7 +60,7 @@ public class todoController {
         // --------------------------------------------------------------
         // todoService.getAllTodos();
         // return "list";   
-        return "list";
+        return "test";
     }
 
 //      Clicks Add → browser sends POST request to /addtodo
@@ -89,9 +89,10 @@ public class todoController {
     }
     
     @DeleteMapping("/todo/{id}")
-    public boolean deleteId(@PathVariable ObjectId id){
+    public String deleteId(@PathVariable ObjectId id){
         todoService.deleteTodo(id);
-        return true;
+        return "redirect:/todo";
+    
     }
 
     @PutMapping("/todo/{id}")

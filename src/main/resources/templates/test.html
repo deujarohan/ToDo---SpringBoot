@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>To-Do List</title>
+
+    <link rel="stylesheet" th:href="@{/test.css}" />
+  </head>
+
+  <body>
+    <div class="app-container">
+      <h1>To-Do List</h1>
+
+      <!-- FORM -->
+      <div class="form-section">
+        <form action="/addTodo" method="post">
+          <label>Title</label>
+
+          <input type="text" name="title" required />
+
+          <label>Description</label>
+
+          <input type="text" name="description" />
+
+          <label>Status</label>
+
+          <select name="completed">
+            <option value="false">Not Completed</option>
+
+            <option value="true">Completed</option>
+          </select>
+
+          <button type="submit">Add Todo</button>
+        </form>
+      </div>
+
+      <hr />
+
+      <h2>Todo List</h2>
+
+      <!-- SCROLL BOX -->
+      <div class="list-box">
+        <ul>
+          <li th:each="todo : ${createTodo}">
+            <span th:text="${todo.title}"></span>
+
+            -
+
+            <span th:text="${todo.description}"></span>
+
+            -
+
+            <span th:text="${todo.completed}"></span>
+
+            <!-- <button th:onclick="'updateTodo(' + ${todo.id} + ')'">
+              Update
+            </button> -->
+            <button
+              th:onclick="'location.href=\'' + @{/todo/{id}(id=${todo.id})} + '\''"
+            >
+              Delete
+            </button>
+            <!-- <a th:href="@{/delete}" class="btn">delete</a> -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

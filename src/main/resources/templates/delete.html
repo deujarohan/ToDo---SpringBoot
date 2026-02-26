@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Delete Todo</title>
+  </head>
+
+  <body>
+    <h2>Are you sure?</h2>
+
+    <p th:text="${todo.title}"></p>
+
+    <form th:action="@{/delete/{id}(id=${todo.id})}" method="post">
+      <button type="submit">Yes, Delete</button>
+    </form>
+
+    <a th:href="@{/todo}">
+      <button>Cancel</button>
+    </a>
+  </body>
+</html>
