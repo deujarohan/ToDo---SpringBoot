@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 
-@RestController
+@Controller
 public class todoController { 
 
     @Autowired
@@ -46,7 +46,7 @@ public class todoController {
 
     // Create method to show page
     @GetMapping("/todo")
-    public List<ToDo> showToDO(Model model){
+    public String showToDO(Model model){
         // Add the list of todos to the Model so the HTML page can access it
         // "createTodo" is the key name used in Thymeleaf (${createTodo})
         // todoList is the actual data (List of ToDo objects)
@@ -60,7 +60,7 @@ public class todoController {
         // --------------------------------------------------------------
         // todoService.getAllTodos();
         // return "list";   
-        return todoList;
+        return "list";
     }
 
 //      Clicks Add → browser sends POST request to /addtodo
@@ -69,7 +69,7 @@ public class todoController {
     // and once post method runs, the new object is cretaed of todo, and that 
     // object is added in this list, then we redirect to /todo
     @PostMapping("/addTodo")
-    public boolean postMethodName(@RequestBody ToDo todo) {
+    public String postMethodName(ToDo todo) {
         // --------------------------------------------------------------
         // todoList.add(todo);
         // --------------------------------------------------------------
@@ -77,7 +77,7 @@ public class todoController {
         // "redirect:" is a special prefix in Spring MVC
     //     It tells Spring:
     // “Don’t render a view template. Instead, send an HTTP redirect to the browser to this URL.”
-        return true;
+        return "redirect:/todo";
     }
 
     @GetMapping("/todo/{id}")

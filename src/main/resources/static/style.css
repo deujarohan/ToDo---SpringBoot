@@ -1,13 +1,15 @@
-/* Reset default browser styles */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Full screen layout */
+/* BODY — no page scroll, center everything */
 body {
   height: 100vh;
+
+  overflow: hidden;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -20,31 +22,64 @@ body {
   align-items: center;
 }
 
-/* Main container */
+/* MAIN WHITE BOX */
 .container {
   background: white;
 
-  width: 90%;
+  width: 600px;
 
-  max-width: 700px;
+  height: 90vh;
 
-  padding: 40px;
+  padding: 25px;
 
   border-radius: 12px;
 
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
 }
 
-/* Title */
+/* HEADINGS */
 h1 {
   text-align: center;
 
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-/* Button styling */
+h2 {
+  margin-top: 15px;
+
+  margin-bottom: 10px;
+}
+
+/* FORM */
+form {
+  margin-bottom: 10px;
+}
+
+/* INPUT */
+input,
+select {
+  width: 100%;
+
+  padding: 10px;
+
+  margin-top: 5px;
+
+  margin-bottom: 10px;
+
+  border-radius: 6px;
+
+  border: 1px solid #ccc;
+}
+
+/* BUTTON */
 button {
-  padding: 12px 20px;
+  padding: 10px 18px;
 
   border: none;
 
@@ -52,7 +87,7 @@ button {
 
   color: white;
 
-  font-size: 16px;
+  font-size: 15px;
 
   border-radius: 6px;
 
@@ -63,34 +98,66 @@ button:hover {
   background: #5a67d8;
 }
 
-/* Input fields */
-input,
-select {
-  width: 100%;
+/* SCROLLABLE TODO BOX */
+.todo-list-container {
+  flex-grow: 1;
 
-  padding: 10px;
+  overflow-y: auto;
 
-  margin-top: 5px;
-
-  margin-bottom: 15px;
+  border: 1px solid #ccc;
 
   border-radius: 6px;
 
-  border: 1px solid #ccc;
+  padding: 10px;
+
+  background: #f9f9f9;
+
+  min-height: 0;
 }
 
-/* Todo list */
-ul {
+/* REMOVE BULLETS */
+.todo-list-container ul {
   list-style: none;
 }
 
-/* Each todo item */
-li {
-  background: #f4f4f4;
+/* EACH ITEM */
+.todo-list-container li {
+  background: #eeeeee;
 
-  padding: 12px;
+  padding: 10px;
 
   margin-bottom: 10px;
 
   border-radius: 6px;
+
+  font-size: 15px;
+}
+
+form {
+  flex-shrink: 0;
+}
+
+/* TITLE */
+.todo-title {
+  font-weight: bold;
+}
+
+/* DESCRIPTION */
+.todo-desc {
+  margin-left: 5px;
+}
+
+/* SCROLLBAR STYLE (optional modern look) */
+.todo-list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.todo-list-container::-webkit-scrollbar-thumb {
+  background: #888;
+
+  border-radius: 10px;
+}
+
+.todo-list-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

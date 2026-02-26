@@ -42,27 +42,40 @@
       <hr />
 
       <h2>Todo List</h2>
+      <!-- Scrollable Todo List -->
+      <div class="todo-list-container">
+        <ul>
+          <li th:each="todo : ${createTodo}">
+            <!-- th:each loops over the list stored in the model under "createTodo" -->
+            <!-- 'todo' is the variable representing each item in the list -->
+            <!-- so its like for(todo :: createTodo) and createTodo is a list, we are taking each element from that list -->
+            <span class="todo-title" th:text="${todo.title}"></span>
+            <!-- <b th:text="${todo.title}"></b> -->
+            <!-- Display the title of the current todo item in bold -->
+            <!-- todo is the element from above, and title is an attribute of createTodo accessing it like an obj -->
 
-      <ul>
-        <li th:each="todo : ${createTodo}">
-          <!-- th:each loops over the list stored in the model under "createTodo" -->
-          <!-- 'todo' is the variable representing each item in the list -->
-          <!-- so its like for(todo :: createTodo) and createTodo is a list, we are taking each element from that list -->
-          <b th:text="${todo.title}"></b>
-          <!-- Display the title of the current todo item in bold -->
-          <!-- todo is the element from above, and title is an attribute of createTodo accessing it like an obj -->
+            -
 
-          -
+            <span class="todo-desc" th:text="${todo.description}"></span>
+            <!-- <span th:text="${todo.description}"></span> -->
+            <!-- Display the description of the current todo item -->
 
-          <span th:text="${todo.description}"></span>
-          <!-- Display the description of the current todo item -->
+            -
 
-          -
+            <span th:text="${todo.completed}"></span>
+            <!-- Display whether the current todo item is completed (true/false) -->
 
-          <span th:text="${todo.completed}"></span>
-          <!-- Display whether the current todo item is completed (true/false) -->
-        </li>
-      </ul>
+            <span class="todo-actions">
+              <!-- <button th:onclick="'updateTodo(' + ${todo.id} + ')'">
+                Update
+              </button>
+              <button th:onclick="'deleteTodo(' + ${todo.id} + ')'">
+                Delete
+              </button> -->
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
