@@ -60,7 +60,7 @@ public class todoController {
         // --------------------------------------------------------------
         // todoService.getAllTodos();
         // return "list";   
-        return "test";
+        return "list";
     }
 
 //      Clicks Add → browser sends POST request to /addtodo
@@ -87,16 +87,57 @@ public class todoController {
                            HttpStatus.NOT_FOUND, "ID not found"
                       ));
     }
+
+    // GET — show confirmation page
+    @GetMapping("/todo/delete/{id}")
+    public String getDeleteConfirm(@PathVariable String id, Model model) {
+        ObjectId objId = new ObjectId(id);
+        ToDo todo = todoService.findTodoById(objId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found"));
+        model.addAttribute("todo", todo);
+        return "delete"; // renders delete.html
+    }
     
-    @DeleteMapping("/todo/{id}")
+    //Delete method
+    @PostMapping("/todo/delete/{id}")
     public String deleteId(@PathVariable ObjectId id){
-        todoService.deleteTodo(id);
-        return "redirect:/todo";
-    
+        // todoService.deleteTodo(id);
+        // return "redirect:/todo";
+        try {
+            todoService.deleteTodo(id);
+            System.out.println("Todo deleted successfully");
+            
+            String redirectUrl = "redirect:/todo";
+            System.out.println("Redirecting to: " + redirectUrl);
+            
+            return redirectUrl;
+        } catch (Exception e) {
+            System.out.println("ERROR during deletion: " + e.getMessage());
+            e.printStackTrace();
+            return "redirect:/todo?error=true";
+        }
     }
 
-    @PutMapping("/todo/{id}")
-    public ToDo putMethodName(@PathVariable String id, @RequestBody ToDo oldJson) {
+    // GET — show the pre-filled edit form
+    @GetMapping("/todo/update/{id}")
+    public String getUpdateForm(@PathVariable String id, Model model) {
+        ObjectId objId;
+        try {
+            objId = new ObjectId(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Id format");
+        }
+
+        ToDo todo = todoService.findTodoById(objId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found"));
+
+        model.addAttribute("todo", todo);
+        return "update"; // renders update.html
+    }
+    
+    // POST — receive the form submission and save
+    @PostMapping("/todo/update/{id}")
+    public String putMethodName(@PathVariable String id, @RequestBody ToDo oldJson) {
         ObjectId objId;
         try {
             objId = new ObjectId(id);
@@ -116,7 +157,7 @@ public class todoController {
         // Save updated object back to DB
         todoService.saveTodo(newObj);
         // return "redirect:/todo";
-        return newObj;
+        return "redirect:/todo";
     }
 
 }

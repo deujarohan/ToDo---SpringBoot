@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Update Task</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/style.css}" />
+  </head>
+  <body>
+    <div class="app-container app-container--narrow">
+      <header class="app-header">
+        <div class="header-label">EDITING TASK</div>
+        <h1>Update Task</h1>
+      </header>
+
+      <section class="card form-card">
+        <!-- Action should POST to your update endpoint, e.g. /todo/update/{id} -->
+        <form
+          th:action="@{/todo/update/{id}(id=${todo.id})}"
+          method="post"
+          class="todo-form"
+        >
+          <div class="form-group">
+            <label for="title">Title <span class="req">*</span></label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              th:value="${todo.title}"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              th:value="${todo.description}"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="completed">Status</label>
+            <select id="completed" name="completed">
+              <option value="false" th:selected="${!todo.completed}">
+                Not Completed
+              </option>
+              <option value="true" th:selected="${todo.completed}">
+                Completed
+              </option>
+            </select>
+          </div>
+
+          <div class="action-row">
+            <a th:href="@{/todo}" class="btn btn--ghost">← Cancel</a>
+            <button type="submit" class="btn btn--primary">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

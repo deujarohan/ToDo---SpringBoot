@@ -3,11 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/home.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/ind.css}" />
     <title>To-Do</title>
   </head>
   <body>
-    <h1>To-Do</h1>
-    <a th:href="@{/todo}" class="btn">To-Do List</a>
+    <main class="hero">
+      <div class="logo-block">
+        <div class="logo-eyebrow">YOUR TASKS AWAIT</div>
+        <div class="logo-type">
+          <span class="logo-to">To</span><span class="logo-dash">—</span
+          ><span class="logo-do">Do</span>
+        </div>
+        <p class="logo-sub">Stay organized, one task at a time.</p>
+      </div>
+
+      <a th:href="@{/todo}" class="cta-btn">
+        Get Started <span class="arrow">→</span>
+      </a>
+    </main>
   </body>
 </html>

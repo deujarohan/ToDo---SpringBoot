@@ -1,21 +1,50 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Delete Todo</title>
+    <meta charset="UTF-8" />
+    <title>Delete Task</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/style.css}" />
   </head>
-
   <body>
-    <h2>Are you sure?</h2>
+    <div class="app-container app-container--narrow">
+      <header class="app-header">
+        <div class="header-label danger-label">⚠ CAUTION</div>
+        <h1>Delete Task</h1>
+        <p class="subtitle">This action cannot be undone.</p>
+      </header>
 
-    <p th:text="${todo.title}"></p>
+      <section class="card delete-card">
+        <div class="delete-preview">
+          <p class="preview-label">You are about to delete:</p>
+          <p class="preview-title" th:text="${todo.title}">Task Title</p>
+          <p class="preview-desc" th:text="${todo.description}">
+            Task description goes here.
+          </p>
+          <span
+            class="todo-badge"
+            th:text="${todo.completed} ? 'Done' : 'Pending'"
+            th:classappend="${todo.completed} ? 'badge--done' : 'badge--pending'"
+          >
+          </span>
+        </div>
 
-    <form th:action="@{/delete/{id}(id=${todo.id})}" method="post">
-      <button type="submit">Yes, Delete</button>
-    </form>
-
-    <a th:href="@{/todo}">
-      <button>Cancel</button>
-    </a>
+        <div class="action-row">
+          <a th:href="@{/todo}" class="btn btn--ghost">← Keep It</a>
+          <!-- POST to your delete endpoint -->
+          <form
+            th:action="@{/todo/delete/{id}(id=${todo.id})}"
+            method="post"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn--danger">Yes, Delete</button>
+          </form>
+        </div>
+      </section>
+    </div>
   </body>
 </html>

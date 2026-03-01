@@ -2,80 +2,99 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" th:href="@{/style.css}" />
     <title>To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/style.css}" />
   </head>
   <body>
-    <div class="container">
-      <h1>To-Do List</h1>
-      <!-- Form to add todo -->
-      <form action="/addTodo" method="post">
-        <!-- TITLE -->
-        <!-- name="title" → sets todo.setTitle(...)
-      name="description" → sets todo.setDescription(...)
-      name="completed" → sets todo.setCompleted(...) -->
-        <!-- Spring does this automatically — no extra code needed. -->
-        <label>Title:</label><br />
-        <input type="text" name="title" required />
-        <br /><br />
+    <div class="app-container">
+      <header class="app-header">
+        <div class="header-label">MY TASKS</div>
+        <h1>To-Do List</h1>
+        <p class="subtitle">Stay organized, one task at a time.</p>
+      </header>
 
-        <!-- DESCRIPTION -->
-        <label>Description:</label><br />
-        <input type="text" name="description" />
-        <br /><br />
+      <!-- ADD FORM -->
+      <section class="card form-card">
+        <h2 class="section-title">Add New Task</h2>
+        <form action="/addTodo" method="post" class="todo-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="title">Title <span class="req">*</span></label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Task name..."
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Optional details..."
+              />
+            </div>
+            <div class="form-group form-group--sm">
+              <label for="completed">Status</label>
+              <select id="completed" name="completed">
+                <option value="false">Not Completed</option>
+                <option value="true">Completed</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--primary">+ Add Task</button>
+        </form>
+      </section>
 
-        <!-- COMPLETED STATUS -->
-        <label>Status:</label>
-
-        <select name="completed">
-          <option value="false">Not Completed</option>
-
-          <option value="true">Completed</option>
-        </select>
-
-        <br /><br />
-
-        <button type="submit">Add Todo</button>
-      </form>
-
-      <hr />
-
-      <h2>Todo List</h2>
-      <!-- Scrollable Todo List -->
-      <div class="todo-list-container">
-        <ul>
-          <li th:each="todo : ${createTodo}">
-            <!-- th:each loops over the list stored in the model under "createTodo" -->
-            <!-- 'todo' is the variable representing each item in the list -->
-            <!-- so its like for(todo :: createTodo) and createTodo is a list, we are taking each element from that list -->
-            <span class="todo-title" th:text="${todo.title}"></span>
-            <!-- <b th:text="${todo.title}"></b> -->
-            <!-- Display the title of the current todo item in bold -->
-            <!-- todo is the element from above, and title is an attribute of createTodo accessing it like an obj -->
-
-            -
-
-            <span class="todo-desc" th:text="${todo.description}"></span>
-            <!-- <span th:text="${todo.description}"></span> -->
-            <!-- Display the description of the current todo item -->
-
-            -
-
-            <span th:text="${todo.completed}"></span>
-            <!-- Display whether the current todo item is completed (true/false) -->
-
-            <span class="todo-actions">
-              <!-- <button th:onclick="'updateTodo(' + ${todo.id} + ')'">
-                Update
-              </button>
-              <button th:onclick="'deleteTodo(' + ${todo.id} + ')'">
-                Delete
-              </button> -->
-            </span>
-          </li>
-        </ul>
-      </div>
+      <!-- TASK LIST -->
+      <section class="card list-card">
+        <h2 class="section-title">All Tasks</h2>
+        <div class="list-box">
+          <ul class="todo-list">
+            <li
+              th:each="todo : ${createTodo}"
+              th:classappend="${todo.completed} ? 'done' : ''"
+              class="todo-item"
+            >
+              <div class="todo-status-dot"></div>
+              <div class="todo-info">
+                <span class="todo-title" th:text="${todo.title}"></span>
+                <span class="todo-desc" th:text="${todo.description}"></span>
+              </div>
+              <span
+                class="todo-badge"
+                th:text="${todo.completed} ? 'Done' : 'Pending'"
+                th:classappend="${todo.completed} ? 'badge--done' : 'badge--pending'"
+              ></span>
+              <div class="todo-actions">
+                <a
+                  th:href="@{/todo/update/{id}(id=${todo.id})}"
+                  class="btn btn--edit"
+                  >Edit</a
+                >
+                <a
+                  th:href="@{/todo/delete/{id}(id=${todo.id})}"
+                  class="btn btn--delete"
+                  >Delete</a
+                >
+              </div>
+            </li>
+          </ul>
+          <!-- empty state -->
+          <div class="empty-state" th:if="${#lists.isEmpty(createTodo)}">
+            <span>🗒️</span>
+            <p>No tasks yet. Add one above!</p>
+          </div>
+        </div>
+      </section>
     </div>
   </body>
 </html>
